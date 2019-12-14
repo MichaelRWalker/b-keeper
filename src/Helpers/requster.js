@@ -1,4 +1,5 @@
 import Axios from "axios";
+import authKey from "./authKey";
 
 const baseURL = 'http://localhost:5000'
 
@@ -15,7 +16,8 @@ const requestTypes = {
 }
 const config = {
         headers:{
-            "auth-token":sessionStorage.getItem('auth-token')
+            //"auth-token":sessionStorage.getItem('auth-token')
+            "auth-token":authKey
         }
     }
 

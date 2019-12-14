@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Table} from 'reactstrap'
+import {Table,Button} from 'reactstrap'
 import ArtistArea from './ArtistArea';
 import requester from '../../Helpers/requster';
 
@@ -15,13 +15,14 @@ constructor(props){
     componentDidMount(){
         requester.get.bands()
         .then(res=>this.setState({artists:res.data}))
+        .catch(err=>alert(err))
     }
 
-
     render() {
-        const {artists,checked} = this.state
+        const {artists,check} = this.state
         return (
             <div className='container'>
+            <Button className='m-1' onClick={()=>this.setState({check:!check})}>{check ? "Show All":"Show Artist with sessions"}</Button>
                 <Table bordered hover className='text-center'>
                     <thead className='thead thead-dark'>
                         <tr>
@@ -33,7 +34,7 @@ constructor(props){
                         </tr>
                     </thead>
                     <tbody>
-                    { artists.length>0 && artists.map( artist => <ArtistArea key={artist._id} artist={artist} isChecked={checked}/>)}
+                    { artists.length > 0 && artists.map( artist => <ArtistArea key={artist._id} artist={artist} isChecked={check}/>)}
                     </tbody>
                 </Table>
             </div>

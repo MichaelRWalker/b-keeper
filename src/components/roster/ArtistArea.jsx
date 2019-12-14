@@ -9,7 +9,7 @@ export default function ArtistArea(props){
     const {name,tracks,genre,sessions,startDate,_id} = props.artist
     const [isOpen , setIsOpen] = useState(false)
 
-        if (props.isChecked && sessions.length === 0)return;
+        if (props.isChecked && sessions.length === 0){return null};
 
     return [<tr className='text-center' key={name} onClick={()=>setIsOpen(!isOpen)} >
                 <td>{tracks}</td>
@@ -28,7 +28,7 @@ export default function ArtistArea(props){
                                     {sessions.length > 0 && <h4 className='text-center'>Sessions</h4>}
                                     {sessions.length > 0 && (
                                         <div className={bootstrapStyle(sessions.length)}>
-                                            {sessions.map(session=> <SessionCard key={session._id} session={session}/>)}
+                                            {sessions.map(session=> <SessionCard key={session._id} artist={props.artist} session={session}/>)}
                                         </div>  
                                     )}
                                 </div>
