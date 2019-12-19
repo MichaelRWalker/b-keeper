@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Table,Button} from 'reactstrap'
 import ArtistArea from './ArtistArea';
-import requester from '../../Helpers/requster';
+import requester from '../../Helpers/requester';
 
 
 export default class Roster extends Component {
@@ -13,7 +13,7 @@ constructor(props){
     }
 }
     componentDidMount(){
-        requester.get.bands()
+        requester.artist.get()
         .then(res=>this.setState({artists:res.data}))
         .catch(err=>alert(err))
     }
@@ -29,12 +29,13 @@ constructor(props){
                             <th>Tracks</th>
                             <th>Name</th>
                             <th>Genre</th>
+                            <th>Projects</th>
                             <th>Sessions</th>
-                            <th>StartDate</th>
                         </tr>
                     </thead>
                     <tbody>
-                    { artists.length > 0 && artists.map( artist => <ArtistArea key={artist._id} artist={artist} isChecked={check}/>)}
+                    {artists.length > 0 && artists.map( artist => <ArtistArea key={artist._id} artist={artist} isChecked={check}/>)}
+
                     </tbody>
                 </Table>
             </div>

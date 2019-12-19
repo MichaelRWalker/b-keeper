@@ -1,6 +1,6 @@
 import React, { useState} from 'react'
 import {Card,CardHeader,Collapse,CardTitle,CardBody} from 'reactstrap'
-import requester from '../../Helpers/requster';
+import requester from '../../Helpers/requester';
 
 
 export default function SessionCard(props){
@@ -14,7 +14,7 @@ export default function SessionCard(props){
     const handleEditClick = () => {
         setEdit(!edit);
         if (edit){
-            requester.update.session(props.artist._id, props.session._id, session)
+            requester.session.update(props.artist._id,props.project._id,props.session._id, session)
         };
     };
 
@@ -22,7 +22,7 @@ export default function SessionCard(props){
         if (edit) setEdit(!edit);
         if (!edit) {
         window.confirm("Are you sure you want to delete this session ?")
-        && requester.delete.session(props.artist._id, props.session._id)
+        && requester.session.delete(props.artist._id, props.session._id)
                            .then(() => (window.location = "/roster"))
 
     }

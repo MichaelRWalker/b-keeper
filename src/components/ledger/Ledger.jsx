@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Table} from 'reactstrap'
-import requester from '../../Helpers/requster'
+import requester from '../../Helpers/requester'
 import LedgerRow from './LedgerRow'
 
 

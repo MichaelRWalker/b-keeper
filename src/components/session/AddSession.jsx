@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Form,FormGroup,Label,Input,Col,Button} from 'reactstrap'
-import Requester from '../../Helpers/requster'
-import requester from '../../Helpers/requster'
+import requester from '../../Helpers/requester'
+
 
 
 
@@ -18,7 +18,7 @@ export default class AddSession extends Component {
     }
 
     componentDidMount(){
-        Requester.get.bands()
+        requester.artist.get()
         .then(res=>this.setState({artists:res.data}))
         .then(()=>this.setState({Band:this.state.artists[0].name}))
     }
@@ -29,7 +29,7 @@ export default class AddSession extends Component {
 
         e.preventDefault()
 
-        requester.add.session(session)
+        requester.session.post()
 
         this.setState({hours:null,cost:null,action:null},()=>{
 
