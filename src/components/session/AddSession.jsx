@@ -8,33 +8,36 @@ import requester from '../../Helpers/requester'
 
 export default class AddSession extends Component {
     state={
-        artists:[],
+        Artists:[],
         readyToSubmit:false,
         Hours :null,
         Cost  :null,
+        Date  :null, 
         Action:null,
-        Band  :null
+        Artist  :null,
+        Project :null,
 
     }
 
     componentDidMount(){
         requester.artist.get()
-        .then(res=>this.setState({artists:res.data}))
-        .then(()=>this.setState({Band:this.state.artists[0].name}))
+        .then(res=>this.setState({Artists:res.data}))
+        .then(()=>this.setState({
+            Artist:this.state.Artists[0].name,
+            Project:this.state.Artists[0].projects[0].projectName}))
+        .then(()=>console.log(this.state))
     }
 
     handleSubmit=(e)=>{
-        const {Hours:hours , Cost:cost , Action:action , Band:band} = this.state
-        const session ={ action, band, cost, hours }
-
+        const {Hours:hours , Cost:cost , Action:action , Date:date,Artists,Project} = this.state
+        const artist = Artists.filter(artist=>artist.name===this.state.Artist)[0];
+        const artistID = artist._id;
+        const projectID = artist.projects.filter(project=>project.projectName=Project)[0]._id
+        const session ={ action, date, cost, hours }
         e.preventDefault()
 
-        requester.session.post()
-
+        requester.session.post(artistID,projectID,session)
         this.setState({hours:null,cost:null,action:null},()=>{
-
-            document.getElementById('sessionForm').reset()
-            
             this.setReadyStatus()
         })
     }
@@ -42,6 +45,7 @@ export default class AddSession extends Component {
     
     
     setReadyStatus=()=>{ 
+        console.log(this.state)
         Object.values(this.state).includes(null) ? 
             this.setState({readyToSubmit:false}):
             this.setState({readyToSubmit:true})
@@ -52,11 +56,23 @@ export default class AddSession extends Component {
             <div className='container w-50'>
                 <Form id='sessionForm' >
                     <FormGroup row >
-                        <Label md={2}>Band</Label>
+                        <Label md={2}>Artist</Label>
                         <Col>
-                            <Input id='Band' onChange={this.handleChange} md={2} type='select'>
-                                {this.state.artists.map(artist=><option key={artist.name}>{artist.name}</option>)}
+                            <Input id='Artist' onChange={this.handleChange} md={2} type='select'>
+                                {this.state.Artists.map(artist=><option key={artist.name}>{artist.name}</option>)}
                             </Input>
+                        </Col>
+                    </FormGroup>
+
+                    <FormGroup row >
+                        <Label md={2}>Project</Label>
+                        <Col>
+                        {   !this.state.Artist ? console.log(true) : (
+                            <Input id='Project' onChange={this.handleChange} md={2} type='select'>
+                            {this.state.Artists.filter(artist=>artist.name===this.state.Artist)[0]
+                            .projects.map(project=><option key={project.projectName}>{project.projectName}</option>)}
+                            </Input>
+                        )}    
                         </Col>
                     </FormGroup>
 
@@ -71,6 +87,13 @@ export default class AddSession extends Component {
                         <Label md={2} >Action</Label>
                         <Col>
                             <Input id='Action' onChange={this.handleChange} md={2} type='text' placeholder='A Short Session Description'></Input>
+                        </Col>
+                    </FormGroup>
+                    
+                    <FormGroup row>
+                        <Label md={2} >Date</Label>
+                        <Col>
+                            <Input id='Date' onChange={this.handleChange} md={2} type='Date' placeholder='A Short Session Description'></Input>
                         </Col>
                     </FormGroup>
 

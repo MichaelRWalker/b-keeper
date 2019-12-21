@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import {Collapse,Card,CardBody,CardHeader,CardTitle} from 'reactstrap';
+import {Collapse,Card,CardBody,CardHeader,CardTitle,Input} from 'reactstrap';
 import SessionCard from "./SessionCard";
 import requester from "../../Helpers/requester";
 import PaymentCard from "./PaymentCard";
 
+
+
+
 const parseLength = (length) => length < 4 ? 'center': 'start'
 const bootstrapStyle = (length) => `row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 justify-content-${parseLength(length)}`
-
-
-
-
-
 
 
 export default function ProjectCard (props){
@@ -32,8 +30,8 @@ export default function ProjectCard (props){
         setEdit(!edit);
         if (edit){
             requester.project.update(props.artist._id,props.project._id, project)
+            };
         };
-    };
 
     const handleCancelClick = () => {
         if (edit) setEdit(!edit);
@@ -42,9 +40,8 @@ export default function ProjectCard (props){
         && window.confirm("Are you REALLY sure you want to delete this Project ?")
         && requester.project.delete(props.artist._id, props.project._id)
                            .then(() => (window.location = "/roster"))
-
-    }
-  };
+        }
+    };
 
     return (
                 <div className='accordion'>
@@ -54,16 +51,36 @@ export default function ProjectCard (props){
                                 <CardTitle className='text-bold'>ProjectDetails</CardTitle>
                                 <CardBody >
                                     <div className="row">
-                                        <div className='col  '><label>Tracks</label></div>
-                                        <div className='col '>{edit ? (<input onChange={handleChange}id="action"type="text" defaultValue={tracks}/>) :tracks}</div>
+                                        <div className='col  '>
+                                            <label>Tracks</label>
+                                        </div>
+                                        <div className='col '>
+                                            {edit ? (<Input className='w-75'onChange={handleChange}id="action"type="number" defaultValue={tracks}/>) :tracks}
+                                        </div>
                                     </div>
                                     <div className="row">
-                                        <div className='col '><label>Deposit</label></div>
-                                        <div className='col '>{edit ? <input onChange={handleChange}id="cost"type="number"defaultValue={deposit}/>:deposit}</div>
+                                        <div className='col '>
+                                            <label>Deposit</label>
+                                        </div>
+                                        <div className='col '>
+                                            {edit ? <Input  className='w-75' onChange={handleChange}id="cost"type="number"defaultValue={deposit}/>:deposit}
+                                        </div>
                                     </div>
                                     <div className="row">
-                                        <div className='col '><label>Start Date</label></div>
-                                        <div className='col '>{edit ? <input onChange={handleChange}id="hours"type="number"defaultValue={startDate}/>:startDate}</div>
+                                        <div className='col '>
+                                            <label>Start Date</label>
+                                        </div>
+                                        <div className='col '>
+                                            {edit ? <Input type="date" className='w-75' id="startDate" placeholder="date placeholder" />:startDate}
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className='col '>
+                                            <label>Finish Date</label>
+                                        </div>
+                                        <div className='col '>
+                                            {edit ? <Input type="date" className='w-75' id="finishDate" placeholder="date placeholder" />:finishDate}
+                                        </div>
                                     </div>
 
                                     <h3>Sessions</h3>

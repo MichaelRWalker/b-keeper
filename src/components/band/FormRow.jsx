@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
 
-class CustomInput extends Component{
+export class CustomInput extends Component{
     render(){
         return <Input className='d-flex mr-5 pr-5 pl-2 form-control-plaintext bg-white border border-gray' readOnly value={this.props.value} onClick={this.props.onClick}></Input>
     }
@@ -13,7 +13,7 @@ class CustomInput extends Component{
 
 export default function FormRow(props) {
     const innerEl = (hasDate) => hasDate ? (
-        <DatePicker selected={props.handleDateChange[0]} onChange={props.handleDateChange[1]} customInput={<CustomInput/>} />
+        <DatePicker selected={props.handleDateChange[0]} onChange={props.handleDateChange[1]} customInput={<CustomInput/>}/>
         ):(
         <Input placeholder={props.name} id={props.name} onChange={props.handleChange} />
         )
