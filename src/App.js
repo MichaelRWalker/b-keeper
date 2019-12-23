@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import authKey from './Helpers/authKey';
 import AddBand from './components/band/Add Band/AddBand';
 import Roster from './components/roster/Roster';
