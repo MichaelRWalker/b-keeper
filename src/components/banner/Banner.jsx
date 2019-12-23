@@ -1,17 +1,23 @@
 import React, { Component } from 'react'
-import { Navbar, NavbarBrand,  NavItem, Nav, Collapse, NavbarToggler, NavLink } from 'reactstrap'
+import { Navbar, NavbarBrand,  NavItem, Nav, Collapse, NavbarToggler, NavLink, Button } from 'reactstrap'
 
 export default class Banner extends Component {
-    state={loggedIn:false,open:false,studioName:''}
+    state={loggedIn:false,open:false}
     componentDidMount(){
-        this.setState({loggedIn:this.props.isLoggedIn})
+        this.setState({
+            loggedIn:this.props.isLoggedIn})
+
+    }
+    logout=()=>{
+        sessionStorage.clear()
+        window.location ='/'
     }
     render() {
         return (
             <div>
                 <Navbar expand='md' dark color='dark' >
-                    <NavbarBrand href='/'>Bkeeper</NavbarBrand>
-                    <NavbarBrand>{this.state.loggedIn&&this.state.studioName}</NavbarBrand>
+                    <NavbarBrand href='/'><small>Bkeeper</small></NavbarBrand>
+                    <NavbarBrand>{this.props.studioName}</NavbarBrand>
                     <NavbarToggler onClick={()=>this.setState({open:!this.state.open})}/>
                     <Collapse navbar isOpen={this.state.open}>        
                         <Nav className='mr-auto' navbar >
@@ -24,12 +30,14 @@ export default class Banner extends Component {
                             <NavItem key='/appointment'><NavLink href='/appointment' >Add Appointment</NavLink></NavItem>,
                             <NavItem key='/ledger'     ><NavLink href='/ledger'      >Ledger         </NavLink></NavItem>,
                             <NavItem key='/addsession' ><NavLink href='/addsession'  >Add Session    </NavLink></NavItem>,
+                            <NavItem key='button'><Button color='danger' onClick={this.logout}>Log Out</Button></NavItem>
                         ]  :[
                             <NavItem key='/register'   ><NavLink href='/register'    >Register       </NavLink></NavItem>,
                             <NavItem key='/login'      ><NavLink href='/login'       >Login          </NavLink></NavItem>,
                             ]
                         }
                         </Nav>
+                        
                     </Collapse> 
                 </Navbar>
             </div>

@@ -1,6 +1,6 @@
 import Axios from "axios";
 // true for heroku false for local
-const environment = true
+const environment = false
 const baseURL =    environment ? 'https://bkeeperserver.herokuapp.com':'http://localhost:5000' ;
 const { get:g, put:u, post:p , delete:d } = Axios;
 const config = {headers:{'auth-token':sessionStorage.getItem('auth-token')}}
@@ -24,7 +24,8 @@ function request( ){
     return {
             user:{
                 post:   (data)    => p(`${makeUrl('user')}/`,data),
-                get:    (id)      => g(`${makeUrl('user')}/${id}`,config),
+                get:    ()      => g(`${makeUrl('user')}/`,config),
+                getWithId:    (id)      => g(`${makeUrl('user')}/${id}`,config),
                 update: (id,data) => u(`${makeUrl('user')}/${id}`,data,config),
                 delete: (id)      => d(`${makeUrl('user')}/${id}`,config),
             },

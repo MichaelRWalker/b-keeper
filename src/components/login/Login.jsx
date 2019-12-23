@@ -23,20 +23,19 @@ export default class Login extends Component {
             password:e.target.value
         })
     }    
-    handleSubmit=(e)=>{
+    handleSubmit=async(e)=>{
         e.preventDefault()
         // Auth Route
         const user = {
           email:this.state.email,
           password:this.state.password
         }
-        console.log(user)
         requester.login(user)
         .then(res=>{
-          
           this.props.login(true)
           this.props.auth(res.data)
         })
+        .then(()=>window.location='/')
         .catch(err=>console.warn('Invalid Login: '+err))
 
     }
