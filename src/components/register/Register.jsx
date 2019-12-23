@@ -1,35 +1,47 @@
 import React, { Component } from 'react'
-import {Input, Form, FormGroup, Label, Button} from 'reactstrap'
+import {Input, Form, FormGroup, Label, Button, Row, Col} from 'reactstrap'
+import requester from '../../Helpers/requester'
 
-export default class RegisterPage extends Component {
+
+
+export default class Register extends Component {
 
   constructor(props){
     super(props)
     this.state ={
-      name:'',
-      email:'',
-      password:'',
-      studioName:'',
+      name:null,
+      email:null,
+      password:null,
+      studioName:null,
+      passwordConfirm:null,
+      studioType:null
     }
   }
 
 
  handleChange=(e)=>{
-   const {id,value} = e.target
-   const updatedField = {[id]:value}
-   console.log(updatedField)
-  this.setState({[id]:value})
+    const {id,value} = e.target
+    const updatedField = {[id]:value}
+    this.setState(updatedField)
  }
 
  handleSubmit=(e)=>{
+   const {password,passwordConfirm ,name,email,studioName,studioType} = this.state
+   const newUser = {name,email,password,studioName,studioType}
    e.preventDefault();
-   console.log(this.state);
+  passwordConfirm === password ?
+  requester.user.post(newUser)  
+  :
+   window.alert('Passwords dont match')
  }
 
     render() {
         return (
-            <Form>            
-            <FormGroup className="form-group">
+          <div className='container '>
+          <Row>
+            <Col></Col>
+            <Form onSubmit={this.handleSubmit} className='form w-50'>            
+              <FormGroup className="form-group">
                 <Label htmlFor="inputEmail4">Name</Label>
                 <Input type="text" onChange={this.handleChange} className="form-control" id="name"/>
               </FormGroup>
@@ -37,22 +49,32 @@ export default class RegisterPage extends Component {
                 <Label htmlFor="inputEmail4">Email</Label>
                 <Input type="email" onChange={this.handleChange} className="form-control" id="email"/>
               </FormGroup>
-            <FormGroup className="form-group">
-              <Label htmlFor="inputAddress">Password</Label>
-              <Input type="password" onChange={this.handleChange} className="form-control" id="password" placeholder="YourPassword"/>
-            </FormGroup>
-            <FormGroup className="form-group">
-              <Label htmlFor="inputAddress2">Confirm Password</Label>
-              <Input type="password" className="form-control" id="passwordConfirm" placeholder="YourPassword"/>
-            </FormGroup>
+              <FormGroup className="form-group">
+                <Label htmlFor="inputAddress">Password</Label>
+                <Input type="password" onChange={this.handleChange} autoComplete='new password' className="form-control" id="password" placeholder="YourPassword"/>
+              </FormGroup>
+              <FormGroup className="form-group">
+                <Label htmlFor="inputAddress2">Confirm Password</Label>
+                <Input type="password" onChange={this.handleChange} className="form-control" id="passwordConfirm"autoComplete='new password' placeholder="YourPassword"/>
+              </FormGroup>
               <FormGroup className="form-group">
                 <Label htmlFor="inputCity">Studio Name</Label>
                 <Input type="text" onChange={this.handleChange} className="form-control" id="studioName"/>
-            </FormGroup>
-              <FormGroup className="form-check">
-            </FormGroup>
-            <Button type="submit" onSubmit={this.handleSubmit} className="btn btn-primary">Sign in</Button>
+              </FormGroup>
+              <FormGroup>
+                <Label>Studio Type</Label>
+                <select id='studioType' onChange={this.handleChange} className='form-control'>
+                  <option>Choose One</option>
+                  <option value='hourly'>Hourly</option>
+                  <option value='perSession'>Per Session</option>
+                  <option value='perSong'>Per Song</option>
+                </select>
+              </FormGroup>
+            <Button type="submit"  className="btn btn-primary">Register</Button>
           </Form>
+          <Col></Col>
+          </Row>
+          </div>
         )
     }
 }

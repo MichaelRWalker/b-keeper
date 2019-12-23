@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import requester from "../../Helpers/requester";
-import {Form, FormGroup, Label, Input, Button} from 'reactstrap';
+import {Form, FormGroup, Label, Input, Button, Row, Col} from 'reactstrap';
 
-export default class LoginPage extends Component {
+
+
+export default class Login extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -42,12 +44,16 @@ export default class LoginPage extends Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <div className='container' >
+      <Row>
+      <Col></Col>
+      <Col className='w-50'>
+      <Form onSubmit={this.handleSubmit} >
         <FormGroup className="form-group">
           <Label htmlFor="exampleInputEmail1">Email address</Label>
           <Input
             type="email"
-            className="form-control w-25"
+            className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             onChange={this.handleEmailChange}
@@ -61,7 +67,8 @@ export default class LoginPage extends Component {
           <Label htmlFor="exampleInputPassword1">Password</Label>
           <Input
             type="password"
-            className="form-control w-25"
+            autoComplete='current password'
+            className="form-control"
             id="exampleInputPassword1"
             onChange={this.handlePasswordChange}
           />
@@ -80,6 +87,11 @@ export default class LoginPage extends Component {
           Submit
         </Button>
       </Form>
+      </Col>
+      <Col></Col>
+      </Row>
+      </div>
     );
   }
 }
+//style={{backgroundImage: `url(${background})`,width:`100%`}}

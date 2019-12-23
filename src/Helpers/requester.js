@@ -24,7 +24,7 @@ const makeUrl = (route) => `${baseURL}${routes[route]}`;
 function request( ){ 
     return {
             user:{
-                post:   (data)    => p(`${makeUrl('user')}/`,data,config),
+                post:   (data)    => p(`${makeUrl('user')}/`,data),
                 get:    (id)      => g(`${makeUrl('user')}/${id}`,config),
                 update: (id,data) => u(`${makeUrl('user')}/${id}`,data,config),
                 delete: (id)      => d(`${makeUrl('user')}/${id}`,config),

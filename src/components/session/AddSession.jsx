@@ -25,7 +25,6 @@ export default class AddSession extends Component {
         .then(()=>this.setState({
             Artist:this.state.Artists[0].name,
             Project:this.state.Artists[0].projects[0].projectName}))
-        .then(()=>console.log(this.state))
     }
 
     handleSubmit=(e)=>{
@@ -45,7 +44,6 @@ export default class AddSession extends Component {
     
     
     setReadyStatus=()=>{ 
-        console.log(this.state)
         Object.values(this.state).includes(null) ? 
             this.setState({readyToSubmit:false}):
             this.setState({readyToSubmit:true})
@@ -67,7 +65,7 @@ export default class AddSession extends Component {
                     <FormGroup row >
                         <Label md={2}>Project</Label>
                         <Col>
-                        {   !this.state.Artist ? console.log(true) : (
+                        {   this.state.Artist && (
                             <Input id='Project' onChange={this.handleChange} md={2} type='select'>
                             {this.state.Artists.filter(artist=>artist.name===this.state.Artist)[0]
                             .projects.map(project=><option key={project.projectName}>{project.projectName}</option>)}
@@ -93,7 +91,7 @@ export default class AddSession extends Component {
                     <FormGroup row>
                         <Label md={2} >Date</Label>
                         <Col>
-                            <Input id='Date' onChange={this.handleChange} md={2} type='Date' placeholder='A Short Session Description'></Input>
+                            <Input id='Date' onChange={this.handleChange} md={2} type='Date'></Input>
                         </Col>
                     </FormGroup>
 

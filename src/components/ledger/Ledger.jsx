@@ -12,7 +12,6 @@ export default class Ledger extends Component {
     componentDidMount(){
         requester.artist.get()
         .then(res=>this.setState({artists:res.data}))
-        .then(()=>console.log(this.state.artists))
     }
 
     render() {

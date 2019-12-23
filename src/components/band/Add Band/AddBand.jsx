@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Form ,FormGroup  } from 'reactstrap'
 import FormRow from './FormRow'
 import AddToRoster from './AddToRoster'
-import requester from '../../Helpers/requester'
+import requester from '../../../Helpers/requester'
 
 
 
