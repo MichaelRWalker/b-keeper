@@ -30,8 +30,10 @@ export default class Login extends Component {
           email:this.state.email,
           password:this.state.password
         }
+        console.log(user)
         requester.login(user)
         .then(res=>{
+          
           this.props.login(true)
           this.props.auth(res.data)
         })
@@ -88,7 +90,7 @@ export default class Login extends Component {
         </Button>
       </Form>
       </Col>
-      <Col></Col>
+
       </Row>
       </div>
     );

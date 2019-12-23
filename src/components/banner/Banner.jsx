@@ -2,12 +2,16 @@ import React, { Component } from 'react'
 import { Navbar, NavbarBrand,  NavItem, Nav, Collapse, NavbarToggler, NavLink } from 'reactstrap'
 
 export default class Banner extends Component {
-    state={loggedIn:true,open:false}
+    state={loggedIn:false,open:false,studioName:''}
+    componentDidMount(){
+        this.setState({loggedIn:this.props.isLoggedIn})
+    }
     render() {
         return (
             <div>
                 <Navbar expand='md' dark color='dark' >
                     <NavbarBrand href='/'>Bkeeper</NavbarBrand>
+                    <NavbarBrand>{this.state.loggedIn&&this.state.studioName}</NavbarBrand>
                     <NavbarToggler onClick={()=>this.setState({open:!this.state.open})}/>
                     <Collapse navbar isOpen={this.state.open}>        
                         <Nav className='mr-auto' navbar >

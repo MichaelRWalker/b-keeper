@@ -1,5 +1,4 @@
-import React from 'react';
-import authKey from './Helpers/authKey';
+import React, { useState } from 'react';
 import AddBand from './components/band/Add Band/AddBand';
 import Roster from './components/roster/Roster';
 import AddSession from './components/session/AddSession';
@@ -13,24 +12,32 @@ import { BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './components/home/Home';
 import Banner from './components/banner/Banner';
 
+
+
+
 function App() {
-  sessionStorage.setItem('auth-token',authKey)
+  const setLogin=(value)=> sessionStorage.setItem('login',value)
+  const setToken = (token) => sessionStorage.setItem('auth-token',token)
+  const isLoggedIn = sessionStorage.getItem('login');
+
+  const [user, setUser] = useState(null)
+  
   return (
     <div className="App">
       <Router>
       <div className='container'>
-      <Banner></Banner>
+      <Banner isLoggedIn={isLoggedIn} studioName={user&&user.studioName}></Banner>
       <br/>
+      <Route path='/' exact>{isLoggedIn?<Home/>:<Login login={setLogin} setUser={setUser} auth={setToken}/>}</Route>
+      <Route path='/login'> <Login login={setLogin} setUser={setUser} auth={setToken} /> </Route>
+      <Route path='/ledger'       component={Ledger}/>
       <Route path='/addproject'   component={AddProject}/>
       <Route path='/payment'      component={Payment}/>
       <Route path='/appointment'  component={Appointment}/>
       <Route path='/register'     component={Register}/>
-      <Route path='/login'        component={Login}/>
-      <Route path='/ledger'       component={Ledger}/>
       <Route path='/addsession'   component={AddSession}/>
       <Route path='/addband'      component={AddBand}/>
       <Route path='/roster'       component={Roster}/>
-      <Route path='/'             component={Home}/>
       
       </div>
       </Router>

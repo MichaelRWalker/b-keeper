@@ -1,10 +1,9 @@
 import Axios from "axios";
 // true for heroku false for local
-const environment = false
+const environment = true
 const baseURL =    environment ? 'https://bkeeperserver.herokuapp.com':'http://localhost:5000' ;
 const { get:g, put:u, post:p , delete:d } = Axios;
-const authToken =`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGZhYTRiYTQyZmIxNTAwNzViMzdhNDgiLCJpYXQiOjE1NzY3MDcyNjF9.4QMY_iVKhMDtG5LhiRl4ND2nIm4KISI25gNmMViBVOI`;
-const config = {headers:{'auth-token':authToken}}
+const config = {headers:{'auth-token':sessionStorage.getItem('auth-token')}}
 const routes = {
     user:'/user',
     artist:'/artist',
