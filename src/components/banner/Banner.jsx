@@ -13,7 +13,7 @@ export default class Banner extends Component {
             loggedIn:this.props.isLoggedIn})
 
     }
-    logout=()=>{
+    logout=()=>()=>{
         sessionStorage.clear();
         window.location ='/'
     };
@@ -40,7 +40,7 @@ export default class Banner extends Component {
                         </Nav>
                         <Nav>
                             <NavItem>
-                                <Button color={'danger'} >Log Out</Button>
+                                <Button color={'danger'} onClick={this.logout()} >Log Out</Button>
                             </NavItem>
                         </Nav>
                     </Collapse> 

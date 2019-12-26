@@ -36,7 +36,8 @@ export default function ArtistArea(props){
                                     <div><strong>Notes</strong></div>
                                     <div>{notes}</div>
                                     <br/>
-                                    {sessions && projects.map(project=>
+                                    {projects.length > 0 &&
+                                    projects.map(project=>
                                         <ProjectCard
                                         key={project._id}
                                         artist={props.artist}

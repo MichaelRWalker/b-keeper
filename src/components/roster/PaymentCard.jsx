@@ -21,14 +21,18 @@ export default function PaymentCard (props){
         setEdit(!edit);
         if (edit){
             requester.payment.update(props.artist._id,props.project._id, payment)
-        };
+        }
     };
-        const handleCancelClick = () => {
+        const handleCancelClick = () =>{
+            const {artist,project,payment}=props;
+            const artistId = artist._id;
+            const projectId = project._id;
+            const paymentId = payment._id;
             if (edit) setEdit(!edit);
             else {
             window.confirm("Are you sure you want to delete this session ?")
-            && requester.session.delete(props.artist._id, props.session._id)
-                               .then(() => (window.location = "/roster"))
+                && requester.payment.delete(artistId,projectId,paymentId)
+                             .then(() => (window.location = "/roster"))
             }
         };
     return(

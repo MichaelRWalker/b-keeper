@@ -3,7 +3,7 @@ import Axios from "axios";
 
 const environment = window.location.origin === 'http://localhost:3000';
 console.log(environment);
-const baseURL =    environment ? 'https://bkeeperserver.herokuapp.com':'http://localhost:5000' ;
+const baseURL =    environment ? 'http://localhost:5000' :'https://bkeeperserver.herokuapp.com' ;
 const { get:g, put:u, post:p , delete:d } = Axios;
 const config = {headers:{'auth-token':sessionStorage.getItem('auth-token')}};
 const routes = {
@@ -22,7 +22,7 @@ const makeUrl = (route) => `${baseURL}${routes[route]}`;
  *
  * @returns
  */
-function request( ){ 
+function Request( ){
     return {
             user:{
                 post:   (data)    => p(`${makeUrl('user')}/`,data),
@@ -64,6 +64,6 @@ function request( ){
                 login:(data)=>p(`${makeUrl('login')}/`,data)
             }
 }
-const requester = new request();
+const requester = new Request();
 export default requester
 

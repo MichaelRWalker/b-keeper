@@ -19,10 +19,12 @@ export default class Appointment extends Component {
     handleChange=(e)=>{this.setState({[e.target.id]:e.target.value})};
     handleSubmit=(e)=>{
         e.preventDefault();
+        const {artist,date,time,location} = this.state;
+        const appointment = {artist,date,time,location};
         const complete = Object.values(this.state).includes(null);
-        complete||requester.post.appointment(this.state);
-        complete|| alert('Appointment Added');
-        complete||e.target.reset();
+        !complete||requester.appointment.post(appointment);
+        !complete|| alert('Appointment Added');
+        !complete||e.target.reset();
     };
 
     render() {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import {Collapse,Card,CardBody,CardHeader,CardTitle,Input} from 'reactstrap';
 import SessionCard from "./SessionCard";
 import requester from "../../Helpers/requester";
@@ -14,22 +14,29 @@ const bootstrapStyle = (length) => `row row-cols-1 row-cols-sm-2 row-cols-md-4 r
 export default function ProjectCard (props){
         const {sessions,artist}=props;
         const [isOpen , setIsOpen] = useState(false);
-        const {tracks,deposit,projectName,finishDate,startDate,payments} = props.project;
         const [edit , setEdit] = useState(false);
         const [project, setProject] = useState({ ...props.project });
+        const {tracks,deposit,projectName,finishDate,startDate,payments} = project;
 
-        const handleHide = () =>setIsOpen(!isOpen);
+
+    const handleHide = () =>setIsOpen(!isOpen);
 
         const handleChange = e => {
             const { id, value } = e.target;
-            const updatedProject = { ...project, ...{ [id]: value } };
+            const change = {[id]:value};
+            const updatedProject = { ...project, ...change  };
                 setProject(updatedProject);
+                console.log(change);
+                console.log(project);
         };
 
         const handleEditClick = () => {
         setEdit(!edit);
+
         if (edit){
             requester.project.update(props.artist._id,props.project._id, project)
+                .then(res=>console.log(res.data))
+                .catch(err=>console.error(err));
             };
         };
 
@@ -55,7 +62,14 @@ export default function ProjectCard (props){
                                             <label>Tracks</label>
                                         </div>
                                         <div className='col '>
-                                            {edit ? (<Input className='w-75'onChange={handleChange}id="action"type="number" defaultValue={tracks}/>) :tracks}
+                                            {edit ? (<Input
+                                                className='w-75'
+                                                onChange={handleChange}
+                                                id="tracks"
+                                                type="number"
+                                                defaultValue={tracks}
+                                            />)
+                                                :tracks}
                                         </div>
                                     </div>
                                     <div className="row">
@@ -63,7 +77,13 @@ export default function ProjectCard (props){
                                             <label>Deposit</label>
                                         </div>
                                         <div className='col '>
-                                            {edit ? <Input  className='w-75' onChange={handleChange}id="cost"type="number"defaultValue={deposit}/>:deposit}
+                                            {edit ? <Input
+                                                className='w-75'
+                                                onChange={handleChange}
+                                                id="deposit"
+                                                type="number"
+                                                defaultValue={deposit}/>
+                                                :deposit}
                                         </div>
                                     </div>
                                     <div className="row">
@@ -71,7 +91,13 @@ export default function ProjectCard (props){
                                             <label>Start Date</label>
                                         </div>
                                         <div className='col '>
-                                            {edit ? <Input type="date" className='w-75' id="startDate" placeholder="date placeholder" />:startDate}
+                                            {edit ? <Input
+                                                type="date"
+                                                className='w-75'
+                                                id="startDate"
+                                                placeholder="date placeholder"
+                                                onChange={handleChange}
+                                            />:startDate}
                                         </div>
                                     </div>
                                     <div className="row">
@@ -79,7 +105,13 @@ export default function ProjectCard (props){
                                             <label>Finish Date</label>
                                         </div>
                                         <div className='col '>
-                                            {edit ? <Input type="date" className='w-75' id="finishDate" placeholder="date placeholder" />:finishDate}
+                                            {edit ? <Input
+                                                type="date"
+                                                className='w-75'
+                                                id="finishDate"
+                                                placeholder="date placeholder"
+                                                onChange={handleChange}
+                                            />:finishDate}
                                         </div>
                                     </div>
 
@@ -95,7 +127,7 @@ export default function ProjectCard (props){
                                     <h3>Payments</h3>
                                     <Collapse isOpen={isOpen}>
                                     {payments.length > 0 && <div className={bootstrapStyle(sessions.length)}>
-                                    {payments.map(payment=> <PaymentCard key={payment._id} payment={payment}/>)}
+                                    {payments.map(payment=> <PaymentCard key={payment._id} project={props.project} artist={artist} payment={payment}/>)}
                                     </div>}
                                     </Collapse>
                                     <br/>
