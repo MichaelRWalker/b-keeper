@@ -15,49 +15,69 @@ import requester from './Helpers/requester';
 
 
 function App() {
-  const setLogin=(value)=> sessionStorage.setItem('login',value)
-  const setToken = (token) => sessionStorage.setItem('auth-token',token)
-  const [user,setUser]=useState(null)
+  const setLogin=(value)=> sessionStorage.setItem('login',value);
+  const setToken = (token) => sessionStorage.setItem('auth-token',token);
+  const [user,setUser]=useState(null);
   const isLoggedIn = sessionStorage.getItem('login');
   
-  isLoggedIn && requester.user.get().then(res=>setUser(res.data))
+  isLoggedIn && requester.user.get().then(res=>setUser(res.data));
   
   return (
     <div className="App">
       <Router>
-      <div className='container'>
-      <Banner isLoggedIn={isLoggedIn} studioName={user&&user.studioName}></Banner>
-      <br/>
-      <Route path='/' exact>{isLoggedIn?<Home user={user?user:'How Did you get here???'}/>:<Login login={setLogin} setUser={setUser} auth={setToken}/>}</Route>
-      <Route path='/login'> <Login login={setLogin} setUser={setUser} auth={setToken} /> </Route>
-      <Route path='/ledger'       component={Ledger}/>
-      <Route path='/addproject'   component={AddProject}/>
-      <Route path='/payment'      component={Payment}/>
-      <Route path='/appointment'  component={Appointment}/>
-      <Route path='/register'     component={Register}/>
-      <Route path='/addsession'   component={AddSession}/>
-      <Route path='/addband'      component={AddBand}/>
-      <Route path='/roster'       component={Roster}/>
-      
-      </div>
+
+        <div className='container'>
+            <Banner
+                isLoggedIn={isLoggedIn}
+                studioName={user&&user.studioName}
+            />
+            <br/>
+            <Route
+                path='/'
+                exact>
+                {isLoggedIn?
+                    <Home user={user?user:'How Did you get here???'}/>
+                :   <Login
+                        login={setLogin}
+                        setUser={setUser}
+                        auth={setToken}
+                    />}
+            </Route>
+            <Route path='/login'>
+                <Login
+                    login={setLogin}
+                    setUser={setUser}
+                    auth={setToken}
+                />
+            </Route>
+                <Route path='/ledger'>
+                    <Ledger/>
+                </Route>
+                <Route path='/addproject'>
+                    <AddProject/>
+                </Route>
+                <Route path='/payment'      >
+                    <Payment/>
+                </Route>
+                <Route path='/appointment'  >
+                    <Appointment/>
+                </Route>
+                <Route path='/register'     >
+                    <Register/>
+                </Route>
+                <Route path='/addsession'   >
+                    <AddSession/>
+                </Route>
+                <Route path='/addband'      >
+                    <AddBand/>
+                </Route>
+                <Route path='/roster'       >
+                    <Roster/>
+                </Route>
+            </div>
       </Router>
     </div>
   );
 }
 
 export default App;
-
-/*
-      <br/>
-      <hr/>
-      <AddSession></AddSession>
-      <br/>
-      <hr/>
-      <AddBand></AddBand>
-      <br/>
-      <hr/>
-      <Roster></Roster>
-      <br/>
-      <hr/>
-
-*/

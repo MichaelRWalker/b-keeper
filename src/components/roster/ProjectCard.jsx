@@ -7,18 +7,18 @@ import PaymentCard from "./PaymentCard";
 
 
 
-const parseLength = (length) => length < 4 ? 'center': 'start'
-const bootstrapStyle = (length) => `row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 justify-content-${parseLength(length)}`
+const parseLength = (length) => length < 4 ? 'center': 'start';
+const bootstrapStyle = (length) => `row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-4 justify-content-${parseLength(length)}`;
 
 
 export default function ProjectCard (props){
-        const {sessions,artist}=props
+        const {sessions,artist}=props;
         const [isOpen , setIsOpen] = useState(false);
-        const {tracks,deposit,projectName,finishDate,startDate,payments} = props.project
+        const {tracks,deposit,projectName,finishDate,startDate,payments} = props.project;
         const [edit , setEdit] = useState(false);
         const [project, setProject] = useState({ ...props.project });
 
-        const handleHide = () =>setIsOpen(!isOpen)
+        const handleHide = () =>setIsOpen(!isOpen);
 
         const handleChange = e => {
             const { id, value } = e.target;

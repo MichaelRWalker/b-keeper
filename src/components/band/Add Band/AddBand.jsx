@@ -14,25 +14,25 @@ export default class AddBand extends Component {
         StartDate     : new Date(),
         Members       : [],
         Notes  : "",
-    }
+    };
 
     handleChange=(e)=>{
         this.setState({[e.target.id]:e.target.value})
         
-    }
-    handleDateChange=(date)=>this.setState({StartDate:date})
+    };
+    handleDateChange=(date)=>this.setState({StartDate:date});
 
     handleSubmit=(e)=>{
-        e.preventDefault()
-        const {BandName:name,BandEmail:email,Genre:genre,StartDate:startDate,Members,Notes:notes}=this.state
-        const members =[]
-        Members && Members.split(',').forEach(member=>members.push(member))
-        const artist = {name,email,genre,startDate,members,notes}
+        e.preventDefault();
+        const {BandName:name,BandEmail:email,Genre:genre,StartDate:startDate,Members,Notes:notes}=this.state;
+        const members =[];
+        Members && Members.split(',').forEach(member=>members.push(member));
+        const artist = {name,email,genre,startDate,members,notes};
          requester.artist.post(artist)
         .then(res=>console.log(res))
-        .catch(error=>console.error(error))
+        .catch(error=>console.error(error));
         e.target.reset()
-    }
+    };
     render() {
         return (
             <div className='container-fluid w-50'>

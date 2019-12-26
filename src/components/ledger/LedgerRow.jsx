@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 
-const rate = 150
+const rate = 150;
 
 const getTotalPayments = (arr) =>{
-    let totalPaid = 0
-    arr.forEach(member=>member.payments.forEach(payment=>totalPaid+=payment.amount))
+    let totalPaid = 0;
+    arr.forEach(member=>member.payments.forEach(payment=>totalPaid+=payment.amount));
     return totalPaid
-}
+};
 
 const getTotalOwed = (totalTracks,totalPayments,discount) => [`${totalTracks * rate - totalPayments - discount}`,` (${totalTracks * rate - discount})`];
 
 const getTotalTracks = (arr)=>{
-    let totalTracks = 0 
-    arr.forEach(project=>totalTracks+=project.tracks)
+    let totalTracks = 0;
+    arr.forEach(project=>totalTracks+=project.tracks);
     return totalTracks
 };
 
@@ -22,7 +22,7 @@ export default class LedgerRow extends Component {
         totalOwed:0,
         totalTracks:0,
         totatPayments:0,
-    }
+    };
 
     componentDidMount(){
         let totalTracks = getTotalTracks(this.props.artist.projects);

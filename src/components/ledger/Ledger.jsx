@@ -7,7 +7,7 @@ import LedgerRow from './LedgerRow'
 export default class Ledger extends Component {
     state={
         artists:[],
-    }
+    };
 
     componentDidMount(){
         requester.artist.get()

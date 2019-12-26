@@ -9,55 +9,62 @@ export default class Login extends Component {
         super(props);
         this.state={
             email:'',
-            password:''
+            password:'',
+            valid:true,
         }
     }
 
     handleEmailChange=(e)=>{
         this.setState({
+            valid:true,
             email:e.target.value
         })
-    }
+    };
     handlePasswordChange=(e)=>{
         this.setState({
+            valid:true,
             password:e.target.value
         })
-    }    
+    };
     handleSubmit=async(e)=>{
-        e.preventDefault()
-        // Auth Route
-        const user = {
-          email:this.state.email,
-          password:this.state.password
-        }
+        e.preventDefault();
+        const {email,password}=this.state;
+        const user = {email,password};
         requester.login(user)
-        .then(res=>{
-          this.props.login(true)
-          this.props.auth(res.data)
-        })
+        .then(res=>this.props.auth(res.data))
+        .then(()=>this.props.login(true))
         .then(()=>window.location='/')
-        .catch(err=>console.warn('Invalid Login: '+err))
+        .catch(err=>{
+          this.setState({valid:false});
+          alert('Invalid Login: ' + err)
+        })
 
-    }
+    };
 
 
 
 
   render() {
+    const {handleSubmit,handleEmailChange,handlePasswordChange,state}=this;
+    const {valid} = state;
     return (
       <div className='container' >
-      <Row>
+      <br/>
+      <Row xs={1} sm={3} md={3} >
       <Col></Col>
-      <Col className='w-50'>
-      <Form onSubmit={this.handleSubmit} >
+      <Col className='w-100'>
+      <Form  onSubmit={handleSubmit} >
+        <h1>Log In</h1>
+        <br/>
         <FormGroup className="form-group">
           <Label htmlFor="exampleInputEmail1">Email address</Label>
           <Input
+            valid={valid} invalid={!valid}
             type="email"
             className="form-control"
-            id="exampleInputEmail1"
+            id="email"
             aria-describedby="emailHelp"
-            onChange={this.handleEmailChange}
+            onChange={handleEmailChange}
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
@@ -67,29 +74,20 @@ export default class Login extends Component {
         <FormGroup className="form-group">
           <Label htmlFor="exampleInputPassword1">Password</Label>
           <Input
+            valid={valid} invalid={!valid}
             type="password"
             autoComplete='current password'
             className="form-control"
-            id="exampleInputPassword1"
-            onChange={this.handlePasswordChange}
+            id="password"
+            onChange={handlePasswordChange}
           />
         </FormGroup>
-        <FormGroup className="form-group form-check">
-          <Input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <Label className="form-check-label" htmlFor="exampleCheck1">
-            Keep me Logged in
-          </Label>
-        </FormGroup>
-        <Button type="submit" className="btn btn-primary" >
+        <Button type="submit" style={{cursor:'pointer'}} className="btn btn-primary" >
           Submit
         </Button>
       </Form>
       </Col>
-
+      <Col></Col>
       </Row>
       </div>
     );

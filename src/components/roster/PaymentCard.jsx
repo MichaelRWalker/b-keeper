@@ -4,12 +4,12 @@ import requester from "../../Helpers/requester";
 
 
 export default function PaymentCard (props){
-        const {date,amount} = props.payment
+        const {date,amount} = props.payment;
         const [edit , setEdit] = useState(false);
         const [isOpen , setIsOpen] = useState(false);
         const [payment, setPayment] = useState({ ...props.payment });
 
-        const handleHide = () =>setIsOpen(!isOpen)
+        const handleHide = () =>setIsOpen(!isOpen);
 
         const handleChange = e => {
             const { id, value } = e.target;
@@ -24,7 +24,7 @@ export default function PaymentCard (props){
         };
     };
         const handleCancelClick = () => {
-            if (edit) setEdit(!edit)
+            if (edit) setEdit(!edit);
             else {
             window.confirm("Are you sure you want to delete this session ?")
             && requester.session.delete(props.artist._id, props.session._id)

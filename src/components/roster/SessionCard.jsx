@@ -3,18 +3,20 @@ import {Card,CardHeader,Collapse,CardTitle,CardBody} from 'reactstrap'
 import requester from '../../Helpers/requester';
 
 
+
 export default function SessionCard(props){
   const [isOpen , setIsOpen ] = useState(false);
   const [session, setSession] = useState({ ...props.session });
   const [edit , setEdit] = useState(false);
-  const {action , cost , hours } = session
+  const {action , cost , hours } = session;
 
-    const handleHide = () =>setIsOpen(!isOpen)
+    const handleHide = () =>setIsOpen(!isOpen);
 
     const handleEditClick = () => {
         setEdit(!edit);
         if (edit){
             requester.session.update(props.artist._id,props.project._id,props.session._id, session)
+                .catch(err=>console.warn(err))
         };
     };
 

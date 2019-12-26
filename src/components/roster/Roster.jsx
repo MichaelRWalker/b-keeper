@@ -1,11 +1,12 @@
 
 import React, { Component } from 'react'
-import {Table,Button} from 'reactstrap'
+import {Table} from 'reactstrap'
 import ArtistArea from './ArtistArea';
 import requester from '../../Helpers/requester';
 
 
 export default class Roster extends Component {
+    _id;
 constructor(props){
     super(props);
     this.state = {
@@ -20,10 +21,9 @@ constructor(props){
     }
 
     render() {
-        const {artists,check} = this.state
+        const {artists,check} = this.state;
         return (
-            <div className='container'>
-            <Button className='m-1' onClick={()=>this.setState({check:!check})}>{check ? "Show All":"Show Artist with sessions"}</Button>
+
                 <Table bordered hover className='text-center'>
                     <thead className='thead thead-dark'>
                         <tr>
@@ -35,11 +35,9 @@ constructor(props){
                         </tr>
                     </thead>
                     <tbody>
-                    {artists.length > 0 && artists.map( artist => <ArtistArea key={artist._id} artist={artist} isChecked={check}/>)}
-
+                    {artists && artists.map( artist => <ArtistArea key={artist._id} artist={artist} isChecked={check}/>)}
                     </tbody>
                 </Table>
-            </div>
         )
     }
 }

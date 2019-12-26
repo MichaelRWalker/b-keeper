@@ -1,51 +1,60 @@
 import React, { Component } from 'react'
-import {Form, Label, Input, FormGroup, Button, Row, Col} from 'reactstrap'
+import {Form, Label, Input, FormGroup, Button, Row, Col,UncontrolledTooltip} from 'reactstrap'
 import requester from '../../Helpers/requester'
 
 
-let update = false
+
+
 
 export default class Appointment extends Component {
-
     state={
+        artists:null,
         artist:null,
         date:null,
         time:null,
         location:null,
-    }
-    componentDidMount(){this.props.update?update=false:update=true}
-    setUpdate(){}
-    handleChange=(e)=>{this.setState({[e.target.id]:e.target.value})}
-    handleSubmit=()=> Object.values(this.state).includes(null)||requester[update?'update':'post'].appointment(this.state)
+    };
+    componentDidMount(){requester.artist.get().then(res=>this.setState({artists:res.data}))}
+    makeOptions=(arr)=>arr.map(artist=><option key={artist._id}>{artist.name}</option>);
+    handleChange=(e)=>{this.setState({[e.target.id]:e.target.value})};
+    handleSubmit=(e)=>{
+        e.preventDefault();
+        const complete = Object.values(this.state).includes(null);
+        complete||requester.post.appointment(this.state);
+        complete|| alert('Appointment Added');
+        complete||e.target.reset();
+    };
 
     render() {
         return (
             <div className='container'>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <Row>
-                    <Col></Col>
+                    <Col>{' '}</Col>
                     <Col>
                     <FormGroup>
                         <Label>Artist</Label>
-                        <Input id='artist' className='' placeholder='Artist Name' onChange={this.handleChange} type='text'></Input>
+                        {this.state.artists &&
+                        <Input type='select'  onChange={this.handleChange} children={this.makeOptions(this.state.artists)}/>
+                        }
                     </FormGroup>
                     <FormGroup>
                         <Label>Date</Label>
-                        <Input id='date' className='' onChange={this.handleChange} type='date'></Input>
+                        <Input id='date' className='' onChange={this.handleChange} type='date'/>
                     </FormGroup>
                     <FormGroup>
                         <Label>Time</Label>
                         <br/>
-                        <small>Hours : Minutes - (AM or PM )</small>
-                        <Input id='time' className='' onChange={this.handleChange} type='time'></Input>
+                        <UncontrolledTooltip target={'time'} placement='right'>Hours:Minutes-(AM or PM )</UncontrolledTooltip>
+                        <Input id='time' className='' onChange={this.handleChange} type='time'/>
                     </FormGroup>
                     <FormGroup>
                         <Label>Location</Label>
-                        <Input id='location' className='' placeholder='Recording Location' onChange={this.handleChange} type='text'></Input>
+                        <Input id='location' className='' placeholder='Recording Location' onChange={this.handleChange} type='text'/>
                     </FormGroup>
-                    <Button>Add To Calander</Button>
+                    <Button >Add To Calender</Button>
                     </Col>
-                    <Col></Col>
+                        <Col>{' '}</Col>
                     </Row>
                 </Form>
             </div>

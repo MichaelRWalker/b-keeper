@@ -7,7 +7,7 @@ import requester from '../../Helpers/requester'
 export default class Register extends Component {
 
   constructor(props){
-    super(props)
+    super(props);
     this.state ={
       name:null,
       email:null,
@@ -20,20 +20,20 @@ export default class Register extends Component {
 
 
  handleChange=(e)=>{
-    const {id,value} = e.target
-    const updatedField = {[id]:value}
+    const {id,value} = e.target;
+    const updatedField = {[id]:value};
     this.setState(updatedField)
- }
+ };
 
  handleSubmit=(e)=>{
-   const {password,passwordConfirm ,name,email,studioName,studioType} = this.state
-   const newUser = {name,email,password,studioName,studioType}
+   const {password,passwordConfirm ,name,email,studioName,studioType} = this.state;
+   const newUser = {name,email,password,studioName,studioType};
    e.preventDefault();
   passwordConfirm === password ?
   requester.user.post(newUser)  
   :
    window.alert('Passwords dont match')
- }
+ };
 
     render() {
         return (

@@ -3,15 +3,15 @@ import {Collapse} from 'reactstrap';
 import ProjectCard from './ProjectCard'
 
 
+
 export default function ArtistArea(props){
-    const {name,members,email,notes,genre,_id,projects} = props.artist
-    const [isOpen , setIsOpen] = useState(false)
-    let sessions =[];
-    let tracks = 0 
-    projects.forEach(project=>tracks+=project.tracks)
-    projects.forEach(project=> sessions.push(project.sessions))
-    sessions = sessions.flat()
-        if (props.isChecked && sessions.length === 0){return null};
+    const {name,members,email,notes,genre,_id,projects} = props.artist;
+    const [isOpen , setIsOpen] = useState(false);
+    let sessions = projects.map(project=>project.sessions);
+    let tracks = 0;
+    projects.forEach(project=>tracks+=project.tracks);
+    sessions = sessions.flat();
+        if (props.isChecked && sessions.length === 0)return null
 
     return [<tr className='text-center' key={name} onClick={()=>setIsOpen(!isOpen)} >
                 <td>{tracks}</td>
@@ -36,7 +36,13 @@ export default function ArtistArea(props){
                                     <div><strong>Notes</strong></div>
                                     <div>{notes}</div>
                                     <br/>
-                                    {sessions && projects.map(project=><ProjectCard key={project._id} artist={props.artist} project={project} sessions={project.sessions}></ProjectCard>)}
+                                    {sessions && projects.map(project=>
+                                        <ProjectCard
+                                        key={project._id}
+                                        artist={props.artist}
+                                        project={project}
+                                        sessions={project.sessions}
+                                        />)}
                                 </div>
                             </div>
                         </div>
