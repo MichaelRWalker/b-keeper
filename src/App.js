@@ -13,14 +13,16 @@ import Home from './components/home/Home';
 import Banner from './components/banner/Banner';
 import requester from './Helpers/requester';
 
-
+let foundUser = false
 function App() {
   const setLogin=(value)=> sessionStorage.setItem('login',value);
   const setToken = (token) => sessionStorage.setItem('auth-token',token);
   const [user,setUser]=useState(null);
   const isLoggedIn = sessionStorage.getItem('login');
   
-  isLoggedIn && requester.user.get().then(res=>setUser(res.data));
+  isLoggedIn && !foundUser &&requester.user.get()
+  .then(res=>setUser(res.data))
+  .then(()=>foundUser=true);
   
   return (
     <div className="App">
