@@ -3,29 +3,40 @@ import {Table} from 'reactstrap'
 import requester from '../../Helpers/requester'
 import LedgerRow from './LedgerRow'
 
-
 export default class Ledger extends Component {
     state={
         artists:[],
+        responsive:' '
     };
 
     componentDidMount(){
         requester.artist.get()
         .then(res=>this.setState({artists:res.data}))
+        window.addEventListener('resize',this.handleResize)
+    }
+    handleResize=()=>{
+        let current = this.state.responsive;
+        let temp = window.innerWidth < 600 ?'table-sm':' ';
+        if(current!==temp)this.setState({responsive:temp})
+        
+    }
+    componentWillUnmount(){
+        window.removeEventListener('onresize')
     }
 
     render() {
         return (
-            <div className='container w-75 '>
-                <Table className='table table-hover table-bordered text-center'>
+            
+            <div className='container table-responsive'>
+                <Table className={`table ${this.state.responsive} table-hover table-bordered text-center`}>
                     <thead className='thead thead-dark'>
                         <tr>
                             <th>Artist</th>
                             <th>Payment</th>
                             <th>Tracks</th>
-                            <th>Price per Track</th>
+                            <th>Price</th>
                             <th>Discount</th>
-                            <th>Amount Owed</th>
+                            <th>Owed</th>
                         </tr>
                     </thead>
                     <tbody>

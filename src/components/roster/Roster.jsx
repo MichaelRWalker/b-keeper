@@ -23,7 +23,7 @@ constructor(props){
     render() {
         const {artists,check} = this.state;
         return (
-
+            <div className='table-responsive'>
                 <Table bordered hover className='text-center'>
                     <thead className='thead thead-dark'>
                         <tr>
@@ -38,6 +38,7 @@ constructor(props){
                     {artists && artists.map( artist => <ArtistArea key={artist._id} artist={artist} isChecked={check}/>)}
                     </tbody>
                 </Table>
+                </div>
         )
     }
 }

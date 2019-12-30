@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Route} from 'react-router-dom';
 import Home from './components/home/Home';
 import Banner from './components/banner/Banner';
 import requester from './Helpers/requester';
+import './App.css'
 
 let foundUser = false
 function App() {
@@ -27,7 +28,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-
         <div className='container'>
             <Banner
                 isLoggedIn={isLoggedIn}
