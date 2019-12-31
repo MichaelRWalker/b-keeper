@@ -29,7 +29,7 @@ constructor(props){
         requester.artist.delete(id).then(()=>{
             requester.artist.get().then(res=>{
                 this.setState({artists:res.data});
-                window.locatiom = '/roster'
+                window.location = '/roster'
             })
         })
             }
