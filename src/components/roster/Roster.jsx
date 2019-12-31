@@ -20,6 +20,20 @@ constructor(props){
         .catch(err=>alert(err))
     }
 
+    handleClick=(id)=> {
+        let confirmOne = window.confirm('Are you sure you want to delete artist ?');
+        if (!confirmOne) return
+        let confirmTwo = window.confirm('This cannot be undone are you positive');
+        if(!confirmTwo)  return
+        console.log(confirmOne,confirmTwo);
+        requester.artist.delete(id).then(()=>{
+            requester.artist.get().then(res=>{
+                this.setState({artists:res.data});
+                window.locatiom = '/roster'
+            })
+        })
+            }
+    ;
     render() {
         const {artists,check} = this.state;
         return (
@@ -35,7 +49,7 @@ constructor(props){
                         </tr>
                     </thead>
                     <tbody>
-                    {artists && artists.map( artist => <ArtistArea key={artist._id} artist={artist} isChecked={check}/>)}
+                    {artists && artists.map( artist => <ArtistArea handleClick={this.handleClick} key={artist._id} artist={artist} isChecked={check}/>)}
                     </tbody>
                 </Table>
                 </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import {Collapse} from 'reactstrap';
+import {Collapse, Button} from 'reactstrap';
 import ProjectCard from './ProjectCard'
+
 
 
 
@@ -9,6 +10,8 @@ export default function ArtistArea(props){
     const [isOpen , setIsOpen] = useState(false);
     let sessions = projects.map(project=>project.sessions);
     let tracks = 0;
+
+
     projects.forEach(project=>tracks+=project.tracks);
     sessions = sessions.flat();
         if (props.isChecked && sessions.length === 0)return null
@@ -44,6 +47,7 @@ export default function ArtistArea(props){
                                         project={project}
                                         sessions={project.sessions}
                                         />)}
+                                        <Button className='mt-2' onClick={()=>props.handleClick(_id)}>Remove Artist</Button>
                                 </div>
                             </div>
                         </div>

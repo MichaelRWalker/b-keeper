@@ -35,7 +35,7 @@ function Request( ){
                 post:   (data) => p(`${makeUrl('artist')}/`,data,config),
                 get:    () => g(`${makeUrl('artist')}/`,config),
                 update: (id,data) => u(`${makeUrl('artist')}/${id}`,data,config),
-                delete: (id,data) => d(`${makeUrl('artist')}/${id}`,data,config),
+                delete: (id) => d(`${makeUrl('artist')}/${id}`,config),
             },
             project:{
                 post:   (artistID,data) =>p(`${makeUrl('project')}/${artistID}`,data,config),

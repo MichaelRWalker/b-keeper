@@ -38,11 +38,13 @@ export default class Banner extends Component {
                             ]
                         }
                         </Nav>
-                        <Nav>
+                        {this.state.loggedIn && (
+                            <Nav>
                             <NavItem>
                                 <Button color={'danger'} onClick={this.logout()} >Log Out</Button>
                             </NavItem>
                         </Nav>
+                        )}
                     </Collapse> 
                 </Navbar>
             </div>
