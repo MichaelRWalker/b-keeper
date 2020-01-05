@@ -14,12 +14,12 @@ export default class AddProject extends Component {
 
     handleClick=()=>{};
     handleSubmit=(e)=> {
-        e.preventDefault()
+        e.preventDefault();
         const {artist:a, tracks, deposit, projectName, startDate} = this.state;
         const artistId = this.state.artists.filter(artist => artist.name === a)[0]._id;
         const project = {tracks, deposit, projectName, startDate};
         requester.project.post(artistId, project)
-            .then(res => alert(`Success
+            .then(() => alert(`Success
                The Project : ${project.name},
                for the artist :${a},
                has been saved to the database.

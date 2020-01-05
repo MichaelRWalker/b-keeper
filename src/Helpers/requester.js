@@ -2,7 +2,7 @@ import Axios from "axios";
 // true for heroku false for local
 
 const environment = window.location.origin === 'http://localhost:3000';
-const platform = window.navigator.platform
+const platform = window.navigator.platform;
 const baseURL =    environment ? platform === 'Win32'? 'http://localhost:5000': '192.168.1.244:5000' :'https://bkeeperserver.herokuapp.com' ;
 const { get:g, put:u, post:p , delete:d } = Axios;
 const config = {headers:{'auth-token':sessionStorage.getItem('auth-token')}};

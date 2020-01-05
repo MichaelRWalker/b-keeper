@@ -21,7 +21,7 @@ export default class LedgerRow extends Component {
     state={
         totalOwed:0,
         totalTracks:0,
-        totatPayments:0,
+        totalPayments:0,
     };
 
     componentDidMount(){

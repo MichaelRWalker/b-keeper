@@ -7,7 +7,7 @@ state={
     totalTracks:0,
     isOpenA:true,
     isOpenB:false
-}
+};
 
     render() {
         const artists = this.props.user.artists;

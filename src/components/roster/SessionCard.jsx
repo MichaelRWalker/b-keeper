@@ -17,7 +17,7 @@ export default function SessionCard(props){
         if (edit){
             requester.session.update(props.artist._id,props.project._id,props.session._id, session)
                 .catch(err=>console.warn(err))
-        };
+        }
     };
 
     const handleCancelClick = () => {
@@ -44,19 +44,19 @@ export default function SessionCard(props){
                                 <CardBody >
                                     <div className="row">
                                         <div className='col  '><label>Action</label></div>
-                                        <div className='col '>{edit ? (<input onChange={handleChange}id="action"type="text" defaultValue={action}/>) :action}</div>
+                                        <div className='col '>{edit ? (<input onChange={handleChange} id="action" type="text" defaultValue={action}/>) :action}</div>
                                     </div>
                                     <div className="row">
                                         <div className='col '><label>Price</label></div>
-                                        <div className='col '>{edit ? <input onChange={handleChange}id="cost"type="number"defaultValue={cost}/>:cost}</div>
+                                        <div className='col '>{edit ? <input onChange={handleChange} id="cost" type="number" defaultValue={cost}/>:cost}</div>
                                     </div>
                                     <div className="row">
                                         <div className='col '><label>Hours</label></div>
-                                        <div className='col '>{edit ? <input onChange={handleChange}id="hours"type="number"defaultValue={hours}/>:hours}</div>
+                                        <div className='col '>{edit ? <input onChange={handleChange} id="hours" type="number" defaultValue={hours}/>:hours}</div>
                                     </div>
                                     <div className="row mt-2">
-                                        <div className='col '><button className='btn btn-primary pr-4 pl-4 mt-2 ml-1 mb-1'onClick={handleEditClick}>{edit ? "Submit" : "Edit "}</button></div>
-                                        <div className='col '><button className='btn btn-danger order-last mt-2 mb-1 pr-3 pl-3'onClick={handleCancelClick}>{edit ? "Cancel" : "Delete "}</button></div>
+                                        <div className='col '><button className='btn btn-primary pr-4 pl-4 mt-2 ml-1 mb-1' onClick={handleEditClick}>{edit ? "Submit" : "Edit "}</button></div>
+                                        <div className='col '><button className='btn btn-danger order-last mt-2 mb-1 pr-3 pl-3' onClick={handleCancelClick}>{edit ? "Cancel" : "Delete "}</button></div>
                                     </div>
                                 </CardBody>
                             </Collapse>

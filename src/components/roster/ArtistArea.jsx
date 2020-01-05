@@ -14,7 +14,7 @@ export default function ArtistArea(props){
 
     projects.forEach(project=>tracks+=project.tracks);
     sessions = sessions.flat();
-        if (props.isChecked && sessions.length === 0)return null
+        if (props.isChecked && sessions.length === 0)return null;
 
     return [<tr className='text-center' key={name} onClick={()=>setIsOpen(!isOpen)} >
                 <td>{tracks}</td>

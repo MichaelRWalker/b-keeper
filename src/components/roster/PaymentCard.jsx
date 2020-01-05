@@ -21,6 +21,7 @@ export default function PaymentCard (props){
         setEdit(!edit);
         if (edit){
             requester.payment.update(props.artist._id,props.project._id, payment)
+                .then(()=>console.log('success'))
         }
     };
         const handleCancelClick = () =>{

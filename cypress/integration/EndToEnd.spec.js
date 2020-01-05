@@ -32,19 +32,51 @@ describe('This is the End To End test for Bkeeper',()=>{
         cy.get('#deposit').type('240');
         cy.get('#projectName').type('The Test Project');
         cy.get('#startDate').type('2020-12-12');
-        cy.contains('Add Project').click()
+        cy.get('.row > :nth-child(2) > .btn').click();
+        cy.wait(10)
     });
 
     it('Roster should have the added Project',()=>{
-        cy.contains('Artist').click();
-        cy.contains('Roster').click();
-        cy.contains('The Band Test').click()
+        cy.visit('http://localhost:3000/roster');
+        cy.contains('The Band Test').click();
         cy.contains('The Test Project');
     });
 
+    it('Should let you add a session to project',()=>{
+        cy.contains('Add Session').click();
+        cy.get('select').select('The Band Test');
+        cy.get('#Project').select('The Test Project');
+        cy.get('#Hours').type('4');
+        cy.get('#Action').type('The Test Session');
+        cy.get('#Date').type('2020-12-12');
+        cy.get('#Cost').type('40');
+        cy.get('#sessionForm > .btn').click();
+    });
 
+    it('Roster should have the added Session',()=>{
+        cy.visit('http://localhost:3000/roster');
+        cy.contains('The Band Test').click();
+        cy.contains('The Test Project').click();
+        cy.contains('The Test Session');
+    });
 
+    it('Should be able to add a payment',()=>{
 
+        cy.visit('http://localhost:3000/payment');
+        cy.get('#artist').select('The Band Test');
+        cy.get('#project').select('The Test Project');
+        cy.get('#date').type('2020-12-12');
+        cy.get('#amount').type(200);
+        cy.get('button').contains('Add Payment').click();
+    });
+
+    it('Roster should have the added Payment',()=>{
+        cy.visit('http://localhost:3000/roster');
+        cy.contains('The Band Test').click();
+        cy.contains('The Test Project').click();
+        cy.contains('The Test Session');
+        cy.contains('Payment')
+    });
 
     it('Should be able to remove the artist',()=>{
         cy.contains('Artist').click();

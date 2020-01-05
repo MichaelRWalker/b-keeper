@@ -37,7 +37,7 @@ export default function ProjectCard (props){
             requester.project.update(props.artist._id,props.project._id, project)
                 .then(res=>console.log(res.data))
                 .catch(err=>console.error(err));
-            };
+            }
         };
 
     const handleCancelClick = () => {

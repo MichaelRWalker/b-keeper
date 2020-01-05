@@ -22,9 +22,9 @@ constructor(props){
 
     handleClick=(id)=> {
         let confirmOne = window.confirm('Are you sure you want to delete artist ?');
-        if (!confirmOne) return
+        if (!confirmOne) return;
         let confirmTwo = window.confirm('This cannot be undone are you positive');
-        if(!confirmTwo)  return
+        if(!confirmTwo)  return;
         console.log(confirmOne,confirmTwo);
         requester.artist.delete(id).then(()=>{
             requester.artist.get().then(res=>{

@@ -14,7 +14,7 @@ import Banner from './components/banner/Banner';
 import requester from './Helpers/requester';
 import './App.css'
 
-let foundUser = false
+let foundUser = false;
 function App() {
   const setLogin=(value)=> sessionStorage.setItem('login',value);
   const setToken = (token) => sessionStorage.setItem('auth-token',token);

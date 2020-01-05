@@ -35,10 +35,13 @@ export default class AddSession extends Component {
         const session ={ action, date, cost, hours };
         e.preventDefault();
 
-        requester.session.post(artistID,projectID,session);
-        this.setState({hours:null,cost:null,action:null},()=>{
-            this.setReadyStatus()
-        })
+        requester.session.post(artistID,projectID,session)
+            .then(()=>{
+                this.setState({hours:null,cost:null,action:null},()=>{
+                    this.setReadyStatus()
+                })
+            })
+
     };
     handleChange=(e)=>this.setState({[e.target.id]:e.target.value},this.setReadyStatus);
     

@@ -11,7 +11,7 @@ export default class Ledger extends Component {
 
     componentDidMount(){
         requester.artist.get()
-        .then(res=>this.setState({artists:res.data}))
+        .then(res=>this.setState({artists:res.data}));
         window.addEventListener('resize',this.handleResize)
     }
     handleResize=()=>{
@@ -19,9 +19,9 @@ export default class Ledger extends Component {
         let temp = window.innerWidth < 600 ?'table-sm':' ';
         if(current!==temp)this.setState({responsive:temp})
         
-    }
+    };
     componentWillUnmount(){
-        window.removeEventListener('onresize')
+        window.removeEventListener('onresize',this.handleResize)
     }
 
     render() {
